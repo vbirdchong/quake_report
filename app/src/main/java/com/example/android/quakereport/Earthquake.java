@@ -8,9 +8,9 @@ public class Earthquake {
 
     private double mMagnitude;
     private String mPlace;
-    private String mTime;
+    private long mTime;
 
-    Earthquake(double mag, String place, String time) {
+    Earthquake(double mag, String place, long time) {
         mMagnitude = mag;
         mPlace = place;
         mTime = time;
@@ -24,7 +24,7 @@ public class Earthquake {
         return mPlace;
     }
 
-    public String getTime() {
+    public long getTime() {
         return mTime;
     }
 }

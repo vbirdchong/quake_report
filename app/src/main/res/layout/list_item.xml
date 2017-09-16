@@ -11,25 +11,30 @@
         android:layout_height="wrap_content"
         android:text="hello"
         android:layout_weight="1"
-        android:gravity="left"
-        android:textSize="18sp"/>
+        android:gravity="left" />
 
     <TextView
         android:id="@+id/id_place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="test"
-        android:layout_weight="2"
-        android:gravity="left"
-        android:textSize="18sp"/>
+        android:layout_weight="1"
+        android:gravity="left" />
+
+    <TextView
+        android:id="@+id/id_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="bye"
+        android:layout_weight="1"
+        android:gravity="left" />
 
     <TextView
         android:id="@+id/id_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="bye"
-        android:layout_weight="2"
-        android:gravity="left"
-        android:textSize="18sp"/>
+        android:text="3.0 PM"
+        android:layout_weight="1"
+        android:gravity="left"/>
 
 </LinearLayout>
