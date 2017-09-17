@@ -3,15 +3,20 @@
     android:id="@+id/list_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/id_mag"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="hello"
-        android:layout_weight="1"
-        android:gravity="left" />
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/magnitude_circle"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:text="8.9" />
 
     <TextView
         android:id="@+id/id_location_offset"
@@ -19,30 +24,27 @@
         android:layout_height="wrap_content"
         android:text="location offset"
         android:layout_weight="1"
-        android:gravity="left"/>
+        android:layout_marginLeft="16dp" />
     
     <TextView
         android:id="@+id/id_place"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="test"
-        android:layout_weight="1"
-        android:gravity="left" />
+        android:layout_weight="1" />
 
     <TextView
         android:id="@+id/id_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="bye"
-        android:layout_weight="1"
-        android:gravity="left" />
+        android:layout_weight="1" />
 
     <TextView
         android:id="@+id/id_time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="3.0 PM"
-        android:layout_weight="1"
-        android:gravity="left"/>
+        android:layout_weight="1" />
 
 </LinearLayout>
