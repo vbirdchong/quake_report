@@ -7,15 +7,23 @@
 
     <TextView
         android:id="@+id/id_mag"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="hello"
         android:layout_weight="1"
         android:gravity="left" />
 
     <TextView
+        android:id="@+id/id_location_offset"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="location offset"
+        android:layout_weight="1"
+        android:gravity="left"/>
+    
+    <TextView
         android:id="@+id/id_place"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="test"
         android:layout_weight="1"
@@ -23,7 +31,7 @@
 
     <TextView
         android:id="@+id/id_date"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="bye"
         android:layout_weight="1"
@@ -31,7 +39,7 @@
 
     <TextView
         android:id="@+id/id_time"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="3.0 PM"
         android:layout_weight="1"

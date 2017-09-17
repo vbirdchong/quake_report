@@ -19,6 +19,8 @@ import java.util.Date;
 
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
 
+    private static final String LOCATION_SEPARATOR = " of ";
+
     EarthquakeAdapter(Activity context, ArrayList<Earthquake> earthquakes) {
         super(context, 0, earthquakes);
     }
@@ -36,8 +38,23 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         TextView magTextView = (TextView) listItemView.findViewById(R.id.id_mag);
         magTextView.setText(Double.toString(currentEarehquake.getMagnitude()));
 
+        String originalPlace = currentEarehquake.getPlace();
+        String locationOffset;
+        String primaryLocation;
+        if (originalPlace.contains(LOCATION_SEPARATOR)) {
+            String[] parts = originalPlace.split(LOCATION_SEPARATOR);
+            locationOffset = parts[0] + LOCATION_SEPARATOR;
+            primaryLocation = parts[1];
+        } else {
+            locationOffset = getContext().getString(R.string.near_the);
+            primaryLocation = originalPlace;
+        }
+
+        TextView locationOffsetTextView = (TextView) listItemView.findViewById(R.id.id_location_offset);
+        locationOffsetTextView.setText(locationOffset);
+
         TextView placeTextView = (TextView) listItemView.findViewById(R.id.id_place);
-        placeTextView.setText(currentEarehquake.getPlace());
+        placeTextView.setText(primaryLocation);
 
         TextView dateTextView = (TextView) listItemView.findViewById(R.id.id_date);
         dateTextView.setText(getDateString(currentEarehquake.getTime()));
@@ -58,5 +75,28 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         Date dateObject = new Date(time);
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
         return timeFormat.format(dateObject);
+    }
+
+    private String getLocationOffset(String placeInfo) {
+        // 虽然可以实现通用的功能，但还是避免使用hard code
+        String locationOffset = "Near by";
+        int indexOf = placeInfo.indexOf("of");
+        if (indexOf != -1) {
+            locationOffset = placeInfo.substring(0, indexOf + 2);
+        }
+
+        return locationOffset;
+    }
+
+    private String getPrimaryLocation(String placeInfo) {
+        String primaryLocation = "";
+        int indexOf = placeInfo.indexOf("of");
+        if (indexOf != -1) {
+            primaryLocation = placeInfo.substring(indexOf + 3, placeInfo.length());
+        }else {
+            primaryLocation = placeInfo;
+        }
+
+        return primaryLocation;
     }
 }
