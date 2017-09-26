@@ -22,9 +22,11 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
     private EarthquakeAdapter mAdapter;
 
+    private TextView mEmptyTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +61,9 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         ListView earthquakeListView = (ListView) findViewById(R.id.list);
         mAdapter = new EarthquakeAdapter(this, new ArrayList<Earthquake>());
         earthquakeListView.setAdapter(mAdapter);
+
+        mEmptyTextView = (TextView) findViewById(R.id.empty_text);
+        earthquakeListView.setEmptyView(mEmptyTextView);
 
         earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             // when click the item, then we can visit the USGS website to get more info
@@ -73,7 +80,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         // Start the AsyncTask to fetch the earthquake data
         // EarthquakeAsyncTask task = new EarthquakeAsyncTask();
         // task.execute(USGS_REQUEST_URL);
-
+        Log.i(LOG_TAG, "Test:start to init loader");
         getLoaderManager().initLoader(EARTHQUAKE_LOADER_ID, null, this);
     }
 
@@ -84,9 +91,12 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
+        mEmptyTextView.setText(R.string.empty_earthquake_info);
+
         // 这里面的实现内容和 AsyncTask 中 onPostExecute 的实现方式一致
         mAdapter.clear();
 
+        Log.i(LOG_TAG, "Test:onLoadFinished");
         // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
         // data set. This will trigger the ListView to update.
         if (earthquakes != null && !earthquakes.isEmpty()) {
@@ -96,6 +106,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     public void onLoaderReset(Loader<List<Earthquake>> loader) {
+        Log.i(LOG_TAG, "Test:onLoaderReset");
         // Loader reset, so we can clear out our existing data.
         mAdapter.clear();
     }
