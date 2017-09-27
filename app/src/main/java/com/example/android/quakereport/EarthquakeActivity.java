@@ -16,8 +16,11 @@
 package com.example.android.quakereport;
 
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -26,6 +29,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -76,12 +80,26 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
             }
         });
 
-        // 使用 AsyncTask 的方式实现需要以下内容
-        // Start the AsyncTask to fetch the earthquake data
-        // EarthquakeAsyncTask task = new EarthquakeAsyncTask();
-        // task.execute(USGS_REQUEST_URL);
-        Log.i(LOG_TAG, "Test:start to init loader");
-        getLoaderManager().initLoader(EARTHQUAKE_LOADER_ID, null, this);
+        if (isNetworkConnected()) {
+            // 使用 AsyncTask 的方式实现需要以下内容
+            // Start the AsyncTask to fetch the earthquake data
+            // EarthquakeAsyncTask task = new EarthquakeAsyncTask();
+            // task.execute(USGS_REQUEST_URL);
+            Log.i(LOG_TAG, "Test:start to init loader");
+            getLoaderManager().initLoader(EARTHQUAKE_LOADER_ID, null, this);
+        } else {
+            mEmptyTextView.setText(R.string.network_not_connect);
+            ProgressBar loadingBar = (ProgressBar) findViewById(R.id.loading_spinner);
+            loadingBar.setVisibility(View.GONE);
+        }
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm =
+                (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
     @Override
@@ -92,6 +110,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     @Override
     public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
         mEmptyTextView.setText(R.string.empty_earthquake_info);
+        ProgressBar loadingBar = (ProgressBar) findViewById(R.id.loading_spinner);
+        loadingBar.setVisibility(View.GONE);
 
         // 这里面的实现内容和 AsyncTask 中 onPostExecute 的实现方式一致
         mAdapter.clear();

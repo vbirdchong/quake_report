@@ -19,4 +19,6 @@
     <string name="near_the">Near the</string>
 
     <string name="empty_earthquake_info">No earthquake data</string>
+
+    <string name="network_not_connect">No internet connection</string>
 </resources>
